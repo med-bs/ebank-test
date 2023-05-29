@@ -9,7 +9,8 @@ import SignIn from "./auth/SignIn";
 
 import Customers from "./scenes/bank/Customers";
 import CustomerForm from "./scenes/bank/CustomersForm";
-import Operations from "./scenes/bank/Operations";
+import Account from "./scenes/bank/Account";
+import OperationHistory from "./scenes/bank/OperationHistory";
 
 function App() {
   const location = useLocation();
@@ -27,8 +28,8 @@ function App() {
               <Route path="/" element={<Customers />} />
               <Route path="/addcustomer" element={<CustomerForm />} />
 
-              <Route path="/operations/:customerId" element={<Operations />} />
-
+              <Route path="/Accounts/:customerId" element={<Account />} />
+              <Route path="/Accounts/:customerId/:accountId" element={<OperationHistory />} />
               <Route path="/signin" element={<SignIn />} />
 
               <Route path="/*" element={<Navigate to="/" replace />} />

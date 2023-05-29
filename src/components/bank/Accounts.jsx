@@ -4,24 +4,26 @@ import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllAccounts } from "../../api/bank/accountSlice";
 import CircularProgressBar from "../CircularProgressBar";
 import ErrorBar from "../ErrorBar";
 
 
-const Accounts = ({ custumerId, setRequestHistory }) => {
+const Accounts = ({ custumerId }) => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { accounts, isErrorAcc, isLoadingAcc, messageAcc } = useSelector(
         (state) => state.accounts
     );
 
     const viewHistory = (account) => {
-
+        navigate("/Accounts/"+account.clientDTO.id+"/"+account.id)
     }
 
     useEffect(() => {
@@ -145,14 +147,14 @@ const Accounts = ({ custumerId, setRequestHistory }) => {
                     alignItems="center"
                     borderBottom={`4px solid ${colors.primary[500]}`}
                     colors={colors.grey[100]}
-                    p="15px"
+                    p="10px"
                 >
                     <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
                         Accounts List
                     </Typography>
                 </Box>
                 <Box
-                    height="75vh"
+                    height="74vh"
                     sx={{
                         "& .MuiDataGrid-root": {
                             border: "none",

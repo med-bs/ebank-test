@@ -22,7 +22,7 @@ const Customers = () => {
     );
 
     const handelAccount = (data) => {
-        navigate("/operations/" + data);
+        navigate("/accounts/" + data);
     }
 
     useEffect(() => {

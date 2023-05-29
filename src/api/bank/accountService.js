@@ -58,7 +58,7 @@ const getAccount = async (data, token) => {
         "/clients/" +
         data.customerId +
         "/accounts/" +
-        data.accountid.trim(),
+        data.accountId.trim(),
         config);
     return response.data;
 };

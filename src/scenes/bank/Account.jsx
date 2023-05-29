@@ -9,7 +9,7 @@ import { getCustomer, reset } from "../../api/bank/customerSlice";
 import Accounts from "../../components/bank/Accounts";
 import AccountForm from "../../components/bank/AccountForm";
 
-const Operations = () => {
+const Account = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -68,4 +68,4 @@ const Operations = () => {
     }
 };
 
-export default Operations;
+export default Account;
