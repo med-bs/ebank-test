@@ -11,6 +11,7 @@ import Customers from "./scenes/bank/Customers";
 import CustomerForm from "./scenes/bank/CustomersForm";
 import Account from "./scenes/bank/Account";
 import OperationHistory from "./scenes/bank/OperationHistory";
+import AccountDetails from "./scenes/bank/AccountDetails";
 
 function App() {
   const location = useLocation();
@@ -28,8 +29,10 @@ function App() {
               <Route path="/" element={<Customers />} />
               <Route path="/addcustomer" element={<CustomerForm />} />
 
-              <Route path="/Accounts/:customerId" element={<Account />} />
-              <Route path="/Accounts/:customerId/:accountId" element={<OperationHistory />} />
+              <Route path="/accounts/:customerId" element={<Account />} />
+              <Route path="/accounts/:customerId/:accountId" element={<OperationHistory />} />
+              <Route path="/operations/:customerId/:accountId" element={<AccountDetails />} />
+
               <Route path="/signin" element={<SignIn />} />
 
               <Route path="/*" element={<Navigate to="/" replace />} />

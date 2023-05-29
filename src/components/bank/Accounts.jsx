@@ -2,6 +2,8 @@ import { useTheme } from "@emotion/react";
 import { tokens } from "../../theme";
 import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import HistoryToggleOffOutlinedIcon from '@mui/icons-material/HistoryToggleOffOutlined';
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +25,11 @@ const Accounts = ({ custumerId }) => {
     );
 
     const viewHistory = (account) => {
-        navigate("/Accounts/"+account.clientDTO.id+"/"+account.id)
+        navigate("/accounts/" + account.clientDTO.id + "/" + account.id)
+    }
+
+    const viewAccount = (account) => {
+        navigate("/operations/" + account.clientDTO.id + "/" + account.id)
     }
 
     useEffect(() => {
@@ -108,25 +114,42 @@ const Accounts = ({ custumerId }) => {
                     return (
                         <Box
                             width="60%"
-                            m="0 auto"
+                            m=" auto"
+                            p="5px"
+                            display="flex"
+                            justifyContent="center"
+                            borderRadius="4px"
+                            backgroundColor={
+                                row.row.type === "SavingAccount" ?
+                                    colors.greenAccent[500] :
+                                    colors.redAccent[500]
+                            }
+                        >
+                            ${row.row.balance}
+                        </Box>
+                    );
+                },
+            },
+            {
+                field: "op",
+                headerName: "Operation",
+                headerAlign: "center",
+                flex: 1,
+                renderCell: (row) => {
+                    return (
+                        <Box
+                            width="60%"
+                            m=" auto"
                             p="5px"
                             display="flex"
                             justifyContent="center"
                             borderRadius="4px"
                         >
+                            <Button onClick={() => { viewAccount(row.row) }}>
+                                <PriceChangeOutlinedIcon />
+                            </Button>
                             <Button onClick={() => { viewHistory(row.row) }}>
-                                <Box
-                                    backgroundColor={
-                                        row.row.type === "SavingAccount" ?
-                                            colors.greenAccent[500] :
-                                            colors.redAccent[500]
-                                    }
-
-                                    p="5px 10px"
-                                    borderRadius="4px"
-                                >
-                                    ${row.row.balance}
-                                </Box>
+                                <HistoryToggleOffOutlinedIcon />
                             </Button>
                         </Box>
                     );

@@ -3,7 +3,7 @@ import { tokens } from "../../theme";
 import { Box, Pagination, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CircularProgressBar from "../../components/CircularProgressBar";
 import { getAccountHistoryPage, reset } from "../../api/bank/operationHistorySlice";
 import ErrorBar from "../../components/ErrorBar";
