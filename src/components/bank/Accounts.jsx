@@ -146,10 +146,10 @@ const Accounts = ({ custumerId }) => {
                             borderRadius="4px"
                         >
                             <Button onClick={() => { viewAccount(row.row) }}>
-                                <PriceChangeOutlinedIcon />
+                                <PriceChangeOutlinedIcon style={{ color: colors.grey[100] }} />
                             </Button>
                             <Button onClick={() => { viewHistory(row.row) }}>
-                                <HistoryToggleOffOutlinedIcon />
+                                <HistoryToggleOffOutlinedIcon style={{ color: colors.grey[100] }} />
                             </Button>
                         </Box>
                     );

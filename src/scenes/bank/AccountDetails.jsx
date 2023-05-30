@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { tokens } from "../../theme";
 import AccountHeader from "../../components/bank/AccountHeader";
+import OperationForm from "../../components/bank/OperationForm";
 
 const AccountDetails = () => {
 
@@ -20,6 +21,8 @@ const AccountDetails = () => {
             margin="10px"
         >
             <AccountHeader title={"Account Details"} customerId={customerId} accountId={accountId} />
+
+            <OperationForm accountId={accountId} />
 
         </Box>
     )

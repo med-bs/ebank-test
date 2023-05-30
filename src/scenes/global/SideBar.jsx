@@ -103,8 +103,8 @@ const SideBar = () => {
                             <Box display="flex" justifyContent="center" alignItems="center">
                                 <img
                                     alt="profile-user"
-                                    width="100px"
-                                    height="100px"
+                                    width="125px"
+                                    height="125px"
                                     src={AdminImg}
                                     style={{ cursor: "pointer", borderRadius: "90%" }}
                                 />

@@ -225,11 +225,16 @@ export const accountSlice = createSlice({
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
                 state.isErrorAcc = false;
-                state.accounts = state.accounts.map((account) => {
-                    if (account.id === action.payload.accountId) {
-                        return { ...account, balance: account.balance - action.payload.amount }
+
+                if (state.account.id === action.payload.accountId) {
+                    state.account = { ...state.account, balance: state.account.balance - action.payload.amount }
+                }
+
+                state.accounts = state.accounts.map((acc) => {
+                    if (acc.id === action.payload.accountId) {
+                        return { ...acc, balance: acc.balance - action.payload.amount }
                     }
-                    return account;
+                    return acc;
                 })
             })
             .addCase(debit.rejected, (state, action) => {
@@ -246,11 +251,16 @@ export const accountSlice = createSlice({
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
                 state.isErrorAcc = false;
-                state.accounts = state.accounts.map((account) => {
-                    if (account.id === action.payload.accountId) {
-                        return { ...account, balance: account.balance + action.payload.amount }
+
+                if (state.account.id === action.payload.accountId) {
+                    state.account = { ...state.account, balance: state.account.balance + action.payload.amount }
+                }
+
+                state.accounts = state.accounts.map((acc) => {
+                    if (acc.id === action.payload.accountId) {
+                        return { ...acc, balance: acc.balance + action.payload.amount }
                     }
-                    return account;
+                    return acc;
                 })
 
             })
@@ -267,17 +277,25 @@ export const accountSlice = createSlice({
                 state.isLoadingAcc = false;
                 state.isSuccessAcc = true;
                 state.isErrorAcc = false;
-                state.accounts = state.accounts.map((account) => {
 
-                    if (account.id === action.payload.accountSource) {
-                        return { ...account, balance: account.balance - action.payload.amount }
+                if (state.account.id === action.payload.accountSource) {
+                    state.account = { ...state.account, balance: state.account.balance - action.payload.amount }
+                }
+
+                if (state.account.id === action.payload.accountDestination) {
+                    state.account = { ...state.account, balance: state.account.balance + action.payload.amount }
+                }
+
+                state.accounts = state.accounts.map((acc) => {
+
+                    if (acc.id === action.payload.accountSource) {
+                        return { ...acc, balance: acc.balance - action.payload.amount }
                     }
 
-                    if (account.id === action.payload.accountDestination) {
-                        return { ...account, balance: account.balance + action.payload.amount }
+                    if (acc.id === action.payload.accountDestination) {
+                        return { ...acc, balance: acc.balance + action.payload.amount }
                     }
-
-                    return account;
+                    return acc;
                 })
 
             })

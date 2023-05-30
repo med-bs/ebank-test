@@ -4,12 +4,11 @@ import { BottomNavigation, BottomNavigationAction, Box, Button, TextField, Typog
 import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import AccountForm from "./AccountForm";
 import { useDispatch, useSelector } from "react-redux";
 import { credit, debit, transfer } from "../../api/bank/accountSlice";
 import ErrorBar from "../ErrorBar";
 
-const OperationForm = ({ account }) => {
+const OperationForm = ({ accountId }) => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -22,14 +21,20 @@ const OperationForm = ({ account }) => {
 
     const [value, setValue] = useState(0);
 
-    const handleSubmitDebit = (values) => {
-        dispatch(debit({ ...values, accountId: account.id }));
+    const handleSubmitDebit = (values, { resetForm }) => {
+        dispatch(debit({ ...values, accountId: accountId }));
+        // Reset the form fields
+        resetForm()
     }
-    const handleSubmitCredit = (values) => {
-        dispatch(credit({ ...values, accountId: account.id }));
+    const handleSubmitCredit = (values, { resetForm }) => {
+        dispatch(credit({ ...values, accountId: accountId }));
+        // Reset the form fields
+        resetForm()
     }
-    const handleSubmitTransfer = (values) => {
-        dispatch(transfer({ ...values, accountSource: account.id }));
+    const handleSubmitTransfer = (values, { resetForm }) => {
+        dispatch(transfer({ ...values, accountSource: accountId }));
+        // Reset the form fields
+        resetForm()
     }
 
     const checkoutDebitSchema = yup.object().shape({
@@ -37,7 +42,7 @@ const OperationForm = ({ account }) => {
         amount: yup.number("must be integer")
             .integer("must be integer")
             .positive("must be positive")
-            .max(account?.balance, `Amount must be less than $ ${account?.balance}`)
+            // .max(account?.balance, `Amount must be less than $ ${account?.balance}`)
             .required("required")
     });
 
@@ -54,7 +59,7 @@ const OperationForm = ({ account }) => {
         amount: yup.number("must be integer")
             .integer("must be integer")
             .positive("must be positive")
-            .max(account?.balance, `Amount must be less than $ ${account?.balance}`)
+            // .max(account?.balance, `Amount must be less than $ ${account?.balance}`)
             .required("required"),
         accountDestination: yup.string().required("required")
             .matches(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, 'Invalid accountId')
@@ -217,20 +222,6 @@ const OperationForm = ({ account }) => {
                             <TextField
                                 fullWidth
                                 variant="filled"
-                                type="text"
-                                label="Account Destination Id"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.accountDestination}
-                                name="accountDestination"
-                                error={!!touched.accountDestination && !!errors.accountDestination}
-                                helperText={touched.accountDestination && errors.accountDestination}
-                                sx={{ gridColumn: "span 4" }}
-                            />
-
-                            <TextField
-                                fullWidth
-                                variant="filled"
                                 type="number"
                                 label="Amount"
                                 onBlur={handleBlur}
@@ -253,6 +244,20 @@ const OperationForm = ({ account }) => {
                                 name="description"
                                 error={!!touched.description && !!errors.description}
                                 helperText={touched.description && errors.description}
+                                sx={{ gridColumn: "span 4" }}
+                            />
+
+                            <TextField
+                                fullWidth
+                                variant="filled"
+                                type="text"
+                                label="Account Destination Id"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.accountDestination}
+                                name="accountDestination"
+                                error={!!touched.accountDestination && !!errors.accountDestination}
+                                helperText={touched.accountDestination && errors.accountDestination}
                                 sx={{ gridColumn: "span 4" }}
                             />
 
@@ -281,7 +286,6 @@ const OperationForm = ({ account }) => {
             backgroundColor={colors.primary[400]}
             overflow="auto"
         >
-            <AccountForm />
             <Box
                 display="flex"
                 justifyContent="center"
@@ -314,10 +318,7 @@ const OperationForm = ({ account }) => {
                 </BottomNavigation>
             </Box>
             <Box m="20px">
-
-                {account?.id ? operationform[value] : (<Typography color={colors.grey[100]} textAlign="center" variant="h5" fontWeight="600">
-                    Select account to do some Operations
-                </Typography>)}
+                {operationform[value]}
                 <ErrorBar isOpen={isErrorAcc} title={"Operation Form"} message={messageAcc} />
             </Box>
 
